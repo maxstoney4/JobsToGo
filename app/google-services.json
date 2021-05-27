@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "464493805233",
+    "project_id": "jobstogo-958f7",
+    "storage_bucket": "jobstogo-958f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:464493805233:android:dd43cf7e43ce40d493ac90",
+        "android_client_info": {
+          "package_name": "com.example.jobstogo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "464493805233-umf6bc9r663jr3fmvq0v6paujgd3hpfm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYsubilKUlEgIUmFGG2orurYAANU93WSs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "464493805233-umf6bc9r663jr3fmvq0v6paujgd3hpfm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
