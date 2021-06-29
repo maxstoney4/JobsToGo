@@ -33,8 +33,9 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.findFragmentById(R.id.navhostFragment) as NavHostFragment
 
+        getSupportActionBar()?.setTitle("JobsToGo");
+    }
 
-        }
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, drawerLayout)
