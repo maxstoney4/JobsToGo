@@ -26,6 +26,7 @@ class HomeFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater,
             R.layout.fragment_home, container, false)
 
+
         var viewPager: ViewPager2 = binding.viewpager
         var adapter = ExampleStateAdapter(childFragmentManager,lifecycle)
         viewPager.adapter = adapter

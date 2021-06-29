@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     android:label="navigation"
-    app:startDestination="@id/startFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/startFragment"
         android:name="com.example.jobstogo.StartFragment"
-        android:label="StartFragment"
-        tools:layout="@layout/fragment_start">
+        android:label="StartFragment">
         <action
             android:id="@+id/action_startFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -30,8 +29,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.jobstogo.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        android:label="fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_shopDetailFragment"
             app:destination="@id/shopDetailFragment" />
@@ -49,4 +47,9 @@
         android:id="@+id/shopDetailFragment"
         android:name="com.example.jobstogo.ShopDetailFragment"
         android:label="ShopDetailFragment" />
+    <fragment
+        android:id="@+id/aboutus"
+        android:name="com.example.jobstogo.Aboutus"
+        android:label="fragment_aboutus"
+        tools:layout="@layout/fragment_aboutus" />
 </navigation>

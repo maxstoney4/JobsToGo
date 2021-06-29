@@ -19,15 +19,26 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        supportFragmentManager.findFragmentById(R.id.navhostFragment) as NavHostFragment
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        drawerLayout = binding.drawerLayout
         navController = this.findNavController(R.id.navhostFragment)
 
 
+        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+        NavigationUI.setupWithNavController(binding.navView, navController)
+
+
+        supportFragmentManager.findFragmentById(R.id.navhostFragment) as NavHostFragment
+
 
         }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(navController, drawerLayout)
+    }
 
 
     }
