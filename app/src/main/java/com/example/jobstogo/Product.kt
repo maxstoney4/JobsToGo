@@ -1,4 +1,4 @@
 package com.example.jobstogo
 
-data class Product(var id:String,var productname:String,var price:String) {
+data class Product(var vendorid:String ?= null,var productname:String ?= null,var productprice:Double ?= null,var productdescription:String ?= null) {
 }

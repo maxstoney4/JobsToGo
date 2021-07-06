@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jobstogo.databinding.FragmentShopBinding
-import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -30,78 +30,50 @@ private const val ARG_PARAM2 = "param2"
  */
 class ShopFragment : Fragment() {
 
-    private lateinit var rv:RecyclerView
-    private lateinit var layoutManager:LinearLayoutManager
-    private lateinit var adapter:ShopRecyclerViewAdapter
-
-    //content:
-    private lateinit var content:ArrayList<Product>
-    val db = Firebase.firestore
-    val placeRef = db.collection("products")
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var productArrayList: ArrayList<Product>
+    private lateinit var myAdapter: ShopRecyclerViewAdapter
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentShopBinding>(inflater,
             R.layout.fragment_shop, container, false)
 
-        initContent()
-        //initrecyclerview
-        rv = binding.rv
-        layoutManager = LinearLayoutManager(this.context,RecyclerView.VERTICAL,false)
-        adapter = ShopRecyclerViewAdapter(content)
-        rv.layoutManager = layoutManager
-        rv.adapter = adapter
+        recyclerView = binding.rv
+        recyclerView.layoutManager = LinearLayoutManager(this.context)
+        recyclerView.setHasFixedSize(true)
 
-        rv.addItemDecoration(DividerItemDecoration(rv.context,layoutManager.orientation))
+        productArrayList = arrayListOf()
 
-        //for clickevent
-        adapter.setOnItemClickListener(object: ShopRecyclerViewAdapter.OnItemClickListener{
-            override fun setOnClickListener(pos: Int) {
-                //to do
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToShopDetailFragment())
+        myAdapter = ShopRecyclerViewAdapter(productArrayList)
+        recyclerView.adapter = myAdapter
 
+        EventChangeListener()
 
-            }
-        })
         binding.btn.setOnClickListener{
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAddProductFragment())
         }
         return binding.root
     }
+    private fun EventChangeListener(){
+        db = FirebaseFirestore.getInstance()
+        db.collection("products").addSnapshotListener(object: EventListener<QuerySnapshot>{
+            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+               if (error != null){
+                    Log.e("Firestore Error",error.message.toString())
+                   return
+                   }
+                for (dc:DocumentChange in value?.documentChanges!!){
+                    if (dc.type == DocumentChange.Type.ADDED){
+                        productArrayList.add(dc.document.toObject(Product::class.java))
 
-    private fun initContent(){
-        content = ArrayList()
-
-        var test: String
-        db.collection("products")
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
-                        Log.d(TAG, "${document.id} => ${document.data}")
-
-                        content.add(Product(document.id,"test","50$"))
-                        test=document.id
-                        Log.d(TAG, test)
-                        //Log.d(TAG, " das ist ein test log um zu zeigen das diese zeile hier noch funktioniert")
                     }
-                    Log.d(TAG, content.toString())
                 }
-                .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error getting documents.", exception)
-                }
-
-        /*
-        content.add(Product(content.size+1,"ProductA","50 $"))
-        content.add(Product(content.size+1,"ProductB","40 $"))
-        content.add(Product(content.size+1,"ProductC","30 $"))
-        content.add(Product(content.size+1,"ProductD","20 $"))
-        content.add(Product(content.size+1,"ProductE","10 $"))
-        content.add(Product(content.size+1,"ProductF","60 $"))
-        content.add(Product(content.size+1,"ProductG","70 $"))
-        content.add(Product(content.size+1,"ProductH","80 $"))
-        content.add(Product(content.size+1,"ProductI","90 $"))
-        content.add(Product(content.size+1,"ProductJ","100 $"))
-        content.add(Product(content.size+1,"ProductK","145 $"))
-         */
+                myAdapter.notifyDataSetChanged()
+            }
+        })
     }
+
+
 }

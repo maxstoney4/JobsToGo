@@ -6,45 +6,29 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ShopRecyclerViewAdapter(var content:ArrayList<Product>): RecyclerView.Adapter<ShopRecyclerViewAdapter.ViewHolder>() {
+class ShopRecyclerViewAdapter(private val productList : ArrayList<Product>): RecyclerView.Adapter<ShopRecyclerViewAdapter.MyViewHolder>(){
 
-    private lateinit var mListener:OnItemClickListener      //for clickevent
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ShopRecyclerViewAdapter.MyViewHolder {
 
-    class ViewHolder(itemView: View,var mListener:OnItemClickListener): RecyclerView.ViewHolder(itemView), View.OnClickListener {      //enthält alle viewelemente die für die einträge abgerufen werden
-        var tvProductname: TextView = itemView.findViewById(R.id.item_tv_productname)
-        var tvPrice: TextView = itemView.findViewById(R.id.item_tv_price)
-
-        //for clickevent
-        init {
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-            if(mListener != null){
-                mListener.setOnClickListener(adapterPosition)
-            }
-        }
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycleritem_shop,parent,false)
+        return MyViewHolder(itemView)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycleritem_shop,parent,false)
-        return ViewHolder(view,mListener)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvProductname.text = content[position].productname
-        holder.tvPrice.text = content[position].price
-
+    override fun onBindViewHolder(holder: ShopRecyclerViewAdapter.MyViewHolder, position: Int) {
+        val product : Product = productList[position]
+        holder.productName.text = product.productname
+        holder.productPrice.text = product.productprice.toString()
     }
 
     override fun getItemCount(): Int {
-        return content.size
+        return productList.size
     }
+    public class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+        val productName: TextView = itemView.findViewById(R.id.item_tv_productname)
+        val productPrice: TextView = itemView.findViewById(R.id.item_tv_price)
 
-    interface OnItemClickListener{          //for clickevent
-        fun setOnClickListener(pos:Int)
-    }
-    fun setOnItemClickListener(mlistener:OnItemClickListener){
-        this.mListener = mlistener
     }
 }
