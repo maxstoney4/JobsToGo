@@ -53,7 +53,7 @@ class JobFragment : Fragment() {
         myAdapter.setOnItemClickListener(object: JobRecyclerViewAdapter.OnItemClickListener{
             override fun setOnClickListener(pos: Int) {
 
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToShopDetailFragment())
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAddJobsFragment())
 
 
             }
