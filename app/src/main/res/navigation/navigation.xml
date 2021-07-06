@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_homeFragment_to_shopDetailFragment"
             app:destination="@id/shopDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_addProductFragment"
+            app:destination="@id/addProductFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -52,4 +55,8 @@
         android:name="com.example.jobstogo.Aboutus"
         android:label="fragment_aboutus"
         tools:layout="@layout/fragment_aboutus" />
+    <fragment
+        android:id="@+id/addProductFragment"
+        android:name="com.example.jobstogo.AddProductFragment"
+        android:label="AddProductFragment" />
 </navigation>

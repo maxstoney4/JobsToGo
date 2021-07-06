@@ -1,17 +1,22 @@
 package com.example.jobstogo
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.jobstogo.databinding.FragmentHomeBinding
 import com.example.jobstogo.databinding.FragmentShopBinding
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,6 +36,8 @@ class ShopFragment : Fragment() {
 
     //content:
     private lateinit var content:ArrayList<Product>
+    val db = Firebase.firestore
+    val placeRef = db.collection("products")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -56,11 +63,34 @@ class ShopFragment : Fragment() {
 
             }
         })
+        binding.btn.setOnClickListener{
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAddProductFragment())
+        }
         return binding.root
     }
 
     private fun initContent(){
         content = ArrayList()
+
+        var test: String
+        db.collection("products")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        Log.d(TAG, "${document.id} => ${document.data}")
+
+                        content.add(Product(document.id,"test","50$"))
+                        test=document.id
+                        Log.d(TAG, test)
+                        //Log.d(TAG, " das ist ein test log um zu zeigen das diese zeile hier noch funktioniert")
+                    }
+                    Log.d(TAG, content.toString())
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents.", exception)
+                }
+
+        /*
         content.add(Product(content.size+1,"ProductA","50 $"))
         content.add(Product(content.size+1,"ProductB","40 $"))
         content.add(Product(content.size+1,"ProductC","30 $"))
@@ -72,5 +102,6 @@ class ShopFragment : Fragment() {
         content.add(Product(content.size+1,"ProductI","90 $"))
         content.add(Product(content.size+1,"ProductJ","100 $"))
         content.add(Product(content.size+1,"ProductK","145 $"))
+         */
     }
 }
