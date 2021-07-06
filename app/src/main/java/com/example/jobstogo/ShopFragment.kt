@@ -50,8 +50,24 @@ class ShopFragment : Fragment() {
         myAdapter = ShopRecyclerViewAdapter(productArrayList)
         recyclerView.adapter = myAdapter
 
+        //for lines in between
+        recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context,
+            (recyclerView.layoutManager as LinearLayoutManager).orientation))
+
+        //for clickevent
+        myAdapter.setOnItemClickListener(object: ShopRecyclerViewAdapter.OnItemClickListener{
+            override fun setOnClickListener(pos: Int) {
+
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToShopDetailFragment())
+
+
+            }
+        })
+
+        //for firestore
         EventChangeListener()
 
+        //floating action button
         binding.btn.setOnClickListener{
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAddProductFragment())
         }
