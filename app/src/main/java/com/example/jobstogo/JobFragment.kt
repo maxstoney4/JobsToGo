@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jobstogo.databinding.FragmentHomeBinding
@@ -41,6 +42,22 @@ class JobFragment : Fragment() {
         recyclerView.adapter = myAdapter
 
         EventChangeListener()
+
+        //for lines in between
+        recyclerView.addItemDecoration(
+            DividerItemDecoration(recyclerView.context,
+            (recyclerView.layoutManager as LinearLayoutManager).orientation)
+        )
+
+        //for clickevent
+        myAdapter.setOnItemClickListener(object: JobRecyclerViewAdapter.OnItemClickListener{
+            override fun setOnClickListener(pos: Int) {
+
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToShopDetailFragment())
+
+
+            }
+        })
 
 
         binding.btn2.setOnClickListener{
