@@ -13,6 +13,8 @@ import com.example.jobstogo.databinding.FragmentAddProductBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,12 +29,10 @@ private const val ARG_PARAM2 = "param2"
 class AddProductFragment : Fragment() {
     private lateinit var binding: FragmentAddProductBinding
     private lateinit var auth: FirebaseAuth;
-    private lateinit var fStore: FirebaseFirestore;
     private lateinit var userID: String;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        fStore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance();
 
     }
@@ -61,7 +61,9 @@ class AddProductFragment : Fragment() {
     fun addProduct(){
 
         userID = auth.currentUser!!.uid //Speicher die UserID von dem User der sich gerade registriert
-        var documentReference: DocumentReference = fStore.collection("products").document(userID) //erstelle eine Tabelle für die User
+
+        val db = Firebase.firestore
+
         val products: HashMap<String, Any> = HashMap<String, Any>() // Eine HashMap um die user daten zu speichern. EIne HashMap speichert die Daten in so eine Art
         //KeyPairs so dass z.b unter dem gewählten key "name" der EditText von Name darunter gespeichert wird und so ist dann der EditText Name per "name" abrufbar.
         products.put("productname", binding.enterProductname.text.trim().toString()); //trim um leerzeichen zu entfernen.
@@ -69,7 +71,7 @@ class AddProductFragment : Fragment() {
         products.put("productprice", binding.enterPrice.text.trim().toString().toDouble());
         products.put("vendorid", userID);
 
-        documentReference.set(products).addOnSuccessListener {
+        db.collection("products").add(products).addOnSuccessListener {
             Log.d(
                 "",
                 "onSuccesss: user Profile is created for $userID"
