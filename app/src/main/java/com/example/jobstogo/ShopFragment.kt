@@ -29,6 +29,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ShopFragment : Fragment() {
+    //https://www.youtube.com/watch?v=Ly0xwWlUpVM <-- Video: Firebase to RecyclerView
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var productArrayList: ArrayList<Product>
