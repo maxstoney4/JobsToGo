@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.example.jobstogo.databinding.FragmentAddProductBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
@@ -76,6 +77,10 @@ class AddProductFragment : Fragment() {
                 "",
                 "onSuccesss: user Profile is created for $userID"
             )
+
+            binding.button.setOnClickListener{
+                findNavController().navigate(AddProductFragmentDirections.actionAddProductFragmentToHomeFragment())
+            }
 
         }
     }
