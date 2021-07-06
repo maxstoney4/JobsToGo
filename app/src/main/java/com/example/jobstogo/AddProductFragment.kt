@@ -7,11 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.jobstogo.databinding.FragmentAddProductBinding
-import com.example.jobstogo.databinding.FragmentJobBinding
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,32 +25,56 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class AddProductFragment : Fragment() {
+    private lateinit var binding: FragmentAddProductBinding
+    private lateinit var auth: FirebaseAuth;
+    private lateinit var fStore: FirebaseFirestore;
+    private lateinit var userID: String;
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fStore = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance();
+
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<FragmentAddProductBinding>(inflater,
-            R.layout.fragment_add_product, container, false)
-        val db = Firebase.firestore
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_product, container, false)
 
-        // Create a new user with a first, middle, and last name
-        val user = hashMapOf(
-            "first" to "Alan",
-            "middle" to "Mathison",
-            "last" to "Turing",
-            "born" to 1912
-        )
 
-// Add a new document with a generated ID
-        db.collection("users")
-            .add(user)
-            .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+        binding.button.setOnClickListener {
+            if (binding.enterProductname.text.trim().toString().isNotEmpty()
+                && binding.enterProductdescription.text.trim().toString().isNotEmpty()
+                && binding.enterPrice.text.trim().toString().isNotEmpty()
+            ) {
+
+                //Toast.makeText(this, "Input provided", Toast.LENGTH_LONG).show()
+                addProduct()
+            } else {
+                Toast.makeText(requireContext(), "Input Required", Toast.LENGTH_SHORT).show()
             }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error adding document", e)
-            }
+        }
 
+            return binding.root
+        }
 
-        return binding.root
+    fun addProduct(){
+
+        userID = auth.currentUser!!.uid //Speicher die UserID von dem User der sich gerade registriert
+        var documentReference: DocumentReference = fStore.collection("products").document(userID) //erstelle eine Tabelle für die User
+        val products: HashMap<String, Any> = HashMap<String, Any>() // Eine HashMap um die user daten zu speichern. EIne HashMap speichert die Daten in so eine Art
+        //KeyPairs so dass z.b unter dem gewählten key "name" der EditText von Name darunter gespeichert wird und so ist dann der EditText Name per "name" abrufbar.
+        products.put("productname", binding.enterProductname.text.trim().toString()); //trim um leerzeichen zu entfernen.
+        products.put("productdescription", binding.enterProductdescription.text.trim().toString());
+        products.put("productprice", binding.enterPrice.text.trim().toString().toDouble());
+        products.put("vendorid", userID);
+
+        documentReference.set(products).addOnSuccessListener {
+            Log.d(
+                "",
+                "onSuccesss: user Profile is created for $userID"
+            )
+
+        }
     }
 }
