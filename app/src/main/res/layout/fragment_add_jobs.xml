@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="addProduct"
+            type="com.example.jobstogo.AddProductFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/enterJobdescription"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="438dp"
+            android:hint="Enter Description"
+            android:maxLength="800"
+            android:padding="12dp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enterLocation" />
+
+        <EditText
+            android:id="@+id/enterLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="41dp"
+            android:hint="Enter Location"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="12dp"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/enterJobdescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enterJobname" />
+
+        <EditText
+            android:id="@+id/enterJobname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="37dp"
+            android:layout_marginBottom="18dp"
+            android:hint="Enter Jobname"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="12dp"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/enterLocation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonjobs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add Product"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enterJobdescription"
+            app:layout_constraintVertical_bias="0.12" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
