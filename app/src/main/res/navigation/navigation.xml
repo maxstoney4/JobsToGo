@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_homeFragment_to_addJobsFragment"
             app:destination="@id/addJobsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_jobDetailFragment"
+            app:destination="@id/jobDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -52,11 +55,7 @@
     <fragment
         android:id="@+id/shopDetailFragment"
         android:name="com.example.jobstogo.ShopDetailFragment"
-        android:label="ShopDetailFragment" >
-        <action
-            android:id="@+id/action_shopDetailFragment_to_jobDetailFragment"
-            app:destination="@id/jobDetailFragment" />
-    </fragment>
+        android:label="ShopDetailFragment" />
     <fragment
         android:id="@+id/aboutus"
         android:name="com.example.jobstogo.Aboutus"
