@@ -99,6 +99,13 @@ class ShopFragment : Fragment() {
                         )
                         productArrayList.add(product)
                     }
+                    if(dc.type == DocumentChange.Type.REMOVED){
+                        var product = Product(dc.document.id,dc.document.getString("vendorid"),dc.document.getString("productname"),
+                            dc.document.getString("productprice") as Double?,dc.document.getString("productdescription")
+                        )
+                        productArrayList.remove(product)
+
+                    }
                 }
                 myAdapter.notifyDataSetChanged()
             }
