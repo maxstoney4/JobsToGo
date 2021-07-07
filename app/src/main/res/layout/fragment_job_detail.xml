@@ -12,6 +12,7 @@
             android:layout_height="728dp"
             android:layout_marginTop="16dp"
             android:fillViewport="true"
+            android:paddingBottom="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.4"
