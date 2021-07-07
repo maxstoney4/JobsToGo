@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jobstogo.databinding.FragmentShopBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -35,6 +37,8 @@ class ShopFragment : Fragment() {
     private lateinit var productArrayList: ArrayList<Product>
     private lateinit var myAdapter: ShopRecyclerViewAdapter
     private lateinit var db: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth;
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -70,8 +74,12 @@ class ShopFragment : Fragment() {
         //floating action button
         binding.btn.setOnClickListener{
 
+            auth = FirebaseAuth.getInstance();
+            if (auth.currentUser != null) {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAddProductFragment())
+        } else { Toast.makeText(requireContext(), "Please Login first", Toast.LENGTH_SHORT).show()
         }
+            }
         return binding.root
     }
     private fun EventChangeListener(){
