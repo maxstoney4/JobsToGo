@@ -54,11 +54,9 @@ class JobFragment : Fragment() {
 
 
         //for clickevent
-        auth = FirebaseAuth.getInstance();
-        myAdapter.setOnItemClickListener(object: JobRecyclerViewAdapter.OnItemClickListener{
-
-            override fun setOnClickListener(pos: Int) {
-                if(auth.currentUser?.uid.toString() != null) {
+        //FOR CLICKING ON ITEM
+            myAdapter.setOnItemClickListener(object : JobRecyclerViewAdapter.OnItemClickListener {
+                override fun setOnClickListener(pos: Int) {
 
 
                     findNavController().navigate(
@@ -66,15 +64,17 @@ class JobFragment : Fragment() {
                             jobArrayList[pos].jobid
                         )
                     )
-                    Log.d(TAG, auth.currentUser?.uid.toString())
+
                 }
+            })
 
+
+        binding.btn2.setOnClickListener {
+            auth = FirebaseAuth.getInstance();
+            if (auth.currentUser != null) {
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAddJobsFragment())
+                Log.d(TAG,auth.currentUser.toString())
             }
-        })
-
-
-        binding.btn2.setOnClickListener{
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAddJobsFragment())
         }
 
         return binding.root
