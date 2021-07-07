@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -73,7 +74,8 @@ class JobFragment : Fragment() {
             auth = FirebaseAuth.getInstance();
             if (auth.currentUser != null) {
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAddJobsFragment())
-                Log.d(TAG,auth.currentUser.toString())
+                Log.d(TAG, auth.currentUser.toString())
+            } else { Toast.makeText(requireContext(), "Please Login first", Toast.LENGTH_SHORT).show()
             }
         }
 

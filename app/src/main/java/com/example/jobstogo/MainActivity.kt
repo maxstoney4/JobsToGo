@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance();
+        auth.signOut()
 
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -42,13 +44,5 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, drawerLayout)
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        auth = FirebaseAuth.getInstance();
-        auth.signOut()
-
-    }
-
 
     }
