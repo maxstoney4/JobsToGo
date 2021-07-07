@@ -58,9 +58,9 @@ class ShopFragment : Fragment() {
         myAdapter.setOnItemClickListener(object: ShopRecyclerViewAdapter.OnItemClickListener{
             override fun setOnClickListener(pos: Int) {
 
-                Log.d(TAG, productArrayList[pos].toString())
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToShopDetailFragment())
+                //Log.d(TAG, productArrayList[pos].toString())
 
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToShopDetailFragment(productArrayList[pos].productid))
             }
         })
 

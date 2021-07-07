@@ -55,7 +55,11 @@
     <fragment
         android:id="@+id/shopDetailFragment"
         android:name="com.example.jobstogo.ShopDetailFragment"
-        android:label="ShopDetailFragment" />
+        android:label="ShopDetailFragment" >
+        <argument
+            android:name="productid"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/aboutus"
         android:name="com.example.jobstogo.Aboutus"
