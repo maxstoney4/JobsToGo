@@ -82,6 +82,13 @@ class JobFragment : Fragment() {
                         )
                         jobArrayList.add(job)
                     }
+                    if(dc.type == DocumentChange.Type.REMOVED){
+                        var job = Job(dc.document.id,dc.document.getString("vendorid"),dc.document.getString("jobname"),
+                            dc.document.getString("joblocation"),dc.document.getString("jobdescription")
+                        )
+                        jobArrayList.remove(job)
+
+                    }
                 }
                 myAdapter.notifyDataSetChanged()
 
