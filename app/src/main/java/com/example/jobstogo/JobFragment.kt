@@ -49,6 +49,7 @@ class JobFragment : Fragment() {
             (recyclerView.layoutManager as LinearLayoutManager).orientation)
         )
 
+
         //for clickevent
         myAdapter.setOnItemClickListener(object: JobRecyclerViewAdapter.OnItemClickListener{
             override fun setOnClickListener(pos: Int) {
@@ -83,6 +84,7 @@ class JobFragment : Fragment() {
                     }
                 }
                 myAdapter.notifyDataSetChanged()
+
             }
         })
     }
