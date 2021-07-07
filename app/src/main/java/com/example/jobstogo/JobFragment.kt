@@ -1,5 +1,6 @@
 package com.example.jobstogo
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jobstogo.databinding.FragmentHomeBinding
 import com.example.jobstogo.databinding.FragmentJobBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,6 +26,7 @@ private lateinit var recyclerView: RecyclerView
 private lateinit var jobArrayList: ArrayList<Job>
 private lateinit var myAdapter: JobRecyclerViewAdapter
 private lateinit var db: FirebaseFirestore
+private lateinit var auth: FirebaseAuth;
 
 class JobFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -51,11 +54,20 @@ class JobFragment : Fragment() {
 
 
         //for clickevent
+        auth = FirebaseAuth.getInstance();
         myAdapter.setOnItemClickListener(object: JobRecyclerViewAdapter.OnItemClickListener{
+
             override fun setOnClickListener(pos: Int) {
+                if(auth.currentUser?.uid.toString() != null) {
 
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToJobDetailFragment(jobArrayList[pos].jobid))
 
+                    findNavController().navigate(
+                        HomeFragmentDirections.actionHomeFragmentToJobDetailFragment(
+                            jobArrayList[pos].jobid
+                        )
+                    )
+                    Log.d(TAG, auth.currentUser?.uid.toString())
+                }
 
             }
         })

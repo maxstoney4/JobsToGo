@@ -10,11 +10,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.jobstogo.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityMainBinding
+    private lateinit var auth: FirebaseAuth;
     //private lateinit var auth: FirebaseAuth;
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +41,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, drawerLayout)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        auth = FirebaseAuth.getInstance();
+        auth.signOut()
+
     }
 
 

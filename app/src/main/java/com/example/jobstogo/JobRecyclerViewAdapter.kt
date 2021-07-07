@@ -32,6 +32,7 @@ class JobRecyclerViewAdapter(private val jobList : ArrayList<Job>): RecyclerView
     }
 
     override fun onBindViewHolder(holder: JobRecyclerViewAdapter.MyViewHolder, position: Int) {
+
         val job: Job = jobList[position]
         db = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance();
@@ -51,7 +52,7 @@ class JobRecyclerViewAdapter(private val jobList : ArrayList<Job>): RecyclerView
                     Log.d(TAG, jobList[position].vendorid.toString())
                     Log.d(TAG, auth.currentUser?.uid.toString())
             }else{
-                    //Toast.makeText(get, "Input Required", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(holder.itemView.context, "USER NOT AUTHORIZED", Toast.LENGTH_SHORT).show()
                     Log.d(TAG, jobList[position].vendorid.toString())
                     Log.d(TAG, auth.currentUser?.uid.toString())
                 }
@@ -86,7 +87,5 @@ class JobRecyclerViewAdapter(private val jobList : ArrayList<Job>): RecyclerView
     fun setOnItemClickListener(mlistener:OnItemClickListener){
         this.mListener = mlistener
     }
-
-
 
 }
