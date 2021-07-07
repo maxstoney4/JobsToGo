@@ -33,7 +33,7 @@ class JobDetailFragment : Fragment() {
                 if (document != null) {
                     Log.d(ContentValues.TAG, "DocumentSnapshot data: ${document.data}")
                     binding.viewJobname.text= document.getString("jobname")
-                    binding.viewLocation.text= "Location: " + document.getString("joblocation")
+                    binding.viewLocation.text= "Ort: " + document.getString("joblocation")
                     binding.viewJobdescription.text= document.getString("jobdescription")
                 } else {
                     Log.d(ContentValues.TAG, "No such document")
