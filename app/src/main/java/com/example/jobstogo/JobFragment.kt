@@ -53,7 +53,7 @@ class JobFragment : Fragment() {
         myAdapter.setOnItemClickListener(object: JobRecyclerViewAdapter.OnItemClickListener{
             override fun setOnClickListener(pos: Int) {
 
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToJobDetailFragment())
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToJobDetailFragment(jobArrayList[pos].jobid))
 
 
             }
@@ -76,8 +76,10 @@ class JobFragment : Fragment() {
                 }
                 for (dc: DocumentChange in value?.documentChanges!!){
                     if (dc.type == DocumentChange.Type.ADDED){
-                        jobArrayList.add(dc.document.toObject(Job::class.java))
-
+                        var job = Job(dc.document.id,dc.document.getString("vendorid"),dc.document.getString("jobname"),
+                            dc.document.getString("joblocation"),dc.document.getString("jobdescription")
+                        )
+                        jobArrayList.add(job)
                     }
                 }
                 myAdapter.notifyDataSetChanged()

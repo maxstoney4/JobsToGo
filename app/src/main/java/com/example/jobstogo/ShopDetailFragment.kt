@@ -41,7 +41,7 @@ class ShopDetailFragment : Fragment() {
                 if (document != null) {
                     Log.d(TAG, "DocumentSnapshot data: ${document.data}")
                     binding.viewProductname.text= document.getString("productname")
-                    binding.viewPrice.text= document.getDouble("productprice").toString()
+                    binding.viewPrice.text= "Preis: " + document.getDouble("productprice").toString().plus("€")
                     binding.viewProductdescription.text= document.getString("productdescription")
                 } else {
                     Log.d(TAG, "No such document")
