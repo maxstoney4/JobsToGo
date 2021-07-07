@@ -58,8 +58,8 @@ class ShopFragment : Fragment() {
         myAdapter.setOnItemClickListener(object: ShopRecyclerViewAdapter.OnItemClickListener{
             override fun setOnClickListener(pos: Int) {
 
+                Log.d(TAG, productArrayList[pos].toString())
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToShopDetailFragment())
-
 
             }
         })
@@ -69,6 +69,7 @@ class ShopFragment : Fragment() {
 
         //floating action button
         binding.btn.setOnClickListener{
+
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAddProductFragment())
         }
         return binding.root
@@ -83,8 +84,12 @@ class ShopFragment : Fragment() {
                    }
                 for (dc:DocumentChange in value?.documentChanges!!){
                     if (dc.type == DocumentChange.Type.ADDED){
-                        productArrayList.add(dc.document.toObject(Product::class.java))
 
+
+                        var product = Product(dc.document.id,dc.document.getString("vendorid"),dc.document.getString("productname"),
+                            dc.document.get("productprice") as Double?,dc.document.getString("productdescription")
+                        )
+                        productArrayList.add(product)
                     }
                 }
                 myAdapter.notifyDataSetChanged()
