@@ -35,10 +35,11 @@ class ShopRecyclerViewAdapter(private val productList : ArrayList<Product>): Rec
         auth = FirebaseAuth.getInstance();
         holder.productName.text = product.productname
         holder.productPrice.text = product.productprice.toString()
+
         holder.deleteproduct.setOnClickListener() {
 
             if (auth.currentUser?.uid.toString() == productList[position].vendorid.toString()) {
-                db.collection("jobs").document(productList[position].productid)
+                db.collection("products").document(productList[position].productid)
                     .delete()
                     .addOnSuccessListener { Log.d(ContentValues.TAG, "DocumentSnapshot successfully deleted!") }
                     .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error deleting document", e) }
