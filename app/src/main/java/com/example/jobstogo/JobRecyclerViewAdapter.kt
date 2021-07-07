@@ -9,13 +9,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class JobRecyclerViewAdapter(private val jobList : ArrayList<Job>): RecyclerView.Adapter<JobRecyclerViewAdapter.MyViewHolder>(){
 
     private lateinit var mListener: JobRecyclerViewAdapter.OnItemClickListener
     private lateinit var db: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth;
     //for clickevent
 
     override fun onCreateViewHolder(
@@ -28,21 +32,31 @@ class JobRecyclerViewAdapter(private val jobList : ArrayList<Job>): RecyclerView
     }
 
     override fun onBindViewHolder(holder: JobRecyclerViewAdapter.MyViewHolder, position: Int) {
-        val job : Job = jobList[position]
+        val job: Job = jobList[position]
         db = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance();
         holder.jobname.text = job.jobname
         holder.joblocation.text = job.joblocation.toString()
-        holder.deletejob.setOnClickListener(){
-
-            db.collection("jobs").document(jobList[position].jobid)
-                .delete()
-                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
-                .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
 
 
-            Log.d(TAG,jobList[position].toString())
+            holder.deletejob.setOnClickListener() {
+
+                if (auth.currentUser?.uid.toString() == jobList[position].vendorid.toString()) {
+                db.collection("jobs").document(jobList[position].jobid)
+                    .delete()
+                    .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+                    .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+
+
+                    Log.d(TAG, jobList[position].vendorid.toString())
+                    Log.d(TAG, auth.currentUser?.uid.toString())
+            }else{
+                    //Toast.makeText(get, "Input Required", Toast.LENGTH_SHORT).show()
+                    Log.d(TAG, jobList[position].vendorid.toString())
+                    Log.d(TAG, auth.currentUser?.uid.toString())
+                }
+
         }
-
     }
 
     override fun getItemCount(): Int {
