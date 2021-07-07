@@ -34,7 +34,7 @@ class ShopRecyclerViewAdapter(private val productList : ArrayList<Product>): Rec
         db = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance();
         holder.productName.text = product.productname
-        holder.productPrice.text = product.productprice.toString()
+        holder.productPrice.text = "Preis: " +product.productprice.toString() +" €"
 
         holder.deleteproduct.setOnClickListener() {
 
