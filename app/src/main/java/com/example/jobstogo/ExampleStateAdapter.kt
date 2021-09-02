@@ -20,4 +20,5 @@ class ExampleStateAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle
     override fun createFragment(position: Int): Fragment {
         return fragments[position]
     }
+
 }
