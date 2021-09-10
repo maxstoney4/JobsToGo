@@ -3,8 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/user/AndroidStudioProjects/jobstogonew/app/src/main/res/layout/fragment_aboutus.xml" value="0.21014492753623187" />
         <entry key="..\:/Users/user/AndroidStudioProjects/jobstogonew/app/src/main/res/layout/fragment_add_product.xml" value="0.264" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/jobstogonew/app/src/main/res/layout/fragment_home.xml" value="0.21014492753623187" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/jobstogonew/app/src/main/res/layout/fragment_job_detail.xml" value="0.21014492753623187" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/jobstogonew/app/src/main/res/layout/fragment_register.xml" value="0.21014492753623187" />
         <entry key="..\:/Users/user/AndroidStudioProjects/jobstogonew/app/src/main/res/layout/fragment_shop_detail.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/jobstogonew/app/src/main/res/layout/fragment_start.xml" value="0.21014492753623187" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/jobstogonew/app/src/main/res/layout/recycleritem_shop.xml" value="0.22509057971014493" />
       </map>
     </option>
   </component>

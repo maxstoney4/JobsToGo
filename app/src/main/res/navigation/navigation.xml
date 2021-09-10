@@ -9,7 +9,8 @@
     <fragment
         android:id="@+id/startFragment"
         android:name="com.example.jobstogo.StartFragment"
-        android:label="StartFragment">
+        android:label="StartFragment"
+        tools:layout="@layout/fragment_start">
         <action
             android:id="@+id/action_startFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -29,7 +30,8 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.jobstogo.HomeFragment"
-        android:label="fragment_home">
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_shopDetailFragment"
             app:destination="@id/shopDetailFragment" />
@@ -55,9 +57,19 @@
     <fragment
         android:id="@+id/shopDetailFragment"
         android:name="com.example.jobstogo.ShopDetailFragment"
-        android:label="ShopDetailFragment" >
+        android:label="ShopDetailFragment"
+        tools:layout="@layout/fragment_shop_detail">
         <argument
             android:name="productid"
+            app:argType="string" />
+        <argument
+            android:name="recommendationone"
+            app:argType="string" />
+        <argument
+            android:name="recommendationtwo"
+            app:argType="string" />
+        <argument
+            android:name="recommendationthree"
             app:argType="string" />
     </fragment>
     <fragment
@@ -68,7 +80,8 @@
     <fragment
         android:id="@+id/addProductFragment"
         android:name="com.example.jobstogo.AddProductFragment"
-        android:label="AddProductFragment" >
+        android:label="AddProductFragment"
+        tools:layout="@layout/fragment_add_product">
         <action
             android:id="@+id/action_addProductFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -76,7 +89,8 @@
     <fragment
         android:id="@+id/addJobsFragment"
         android:name="com.example.jobstogo.AddJobsFragment"
-        android:label="AddJobsFragment" >
+        android:label="AddJobsFragment"
+        tools:layout="@layout/fragment_add_jobs">
         <action
             android:id="@+id/action_addJobsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -84,9 +98,20 @@
     <fragment
         android:id="@+id/jobDetailFragment"
         android:name="com.example.jobstogo.JobDetailFragment"
-        android:label="JobDetailFragment" >
+        android:label="JobDetailFragment"
+        tools:layout="@layout/fragment_job_detail">
         <argument
             android:name="jobid"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/jobFragment"
+        android:name="com.example.jobstogo.JobFragment"
+        android:label="JobFragment"
+        tools:layout="@layout/fragment_job"/>
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="com.example.jobstogo.ShopFragment"
+        android:label="ShopFragment"
+        tools:layout="@layout/fragment_shop"/>
 </navigation>

@@ -62,6 +62,7 @@ class RegisterFragment : Fragment() {
     }
 
     fun createUser(email: String, password: String) {
+        var array= listOf<String>(" ")
 
         //Create a user with these fields on the server
         auth.createUserWithEmailAndPassword(email, password)
@@ -78,6 +79,8 @@ class RegisterFragment : Fragment() {
                     users.put("name", binding.etRegisterName.text.trim().toString()); //trim um leerzeichen zu entfernen.
                     users.put("email", binding.etRegisterEmail.text.trim().toString());
                     users.put("phone", binding.etRegisterPhone.text.trim().toString());
+                    users.put("ratedproducts", array)
+
                     documentReference.set(users).addOnSuccessListener {
                         Log.d(
                             "",
